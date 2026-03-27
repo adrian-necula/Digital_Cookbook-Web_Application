@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rețete</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+
+<div class="container py-4">
+  <div class="row mb-3">
+    <div class="col"><h1 class="text-center">Rețete</h1></div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col d-flex justify-content-center gap-2 flex-wrap">
+      <a class="btn btn-primary" th:href="@{/retete/new}">Adaugă o nouă rețetă</a>
+      <a class="btn btn-outline-dark" th:href="@{/}">Meniu principal</a>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th style="width: 100px;">ID Rețetă</th>
+          <th style="min-width: 200px;">Nume Rețetă</th>
+          <th>Descriere</th>
+          <th style="width: 150px;">Timp Preparare</th>
+          <th style="width: 100px;">Nr. Porții</th>
+          <th style="width: 200px;">Acțiuni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="reteta : ${retete}">
+          <td th:text="${reteta.idReteta}"></td>
+          <td th:text="${reteta.numeReteta}"></td>
+          <td th:text="${reteta.descriere}"></td>
+          <td th:text="${reteta.timpPreparareMin}"></td>
+          <td th:text="${reteta.portii}"></td>
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-2 flex-wrap">
+              <a class="btn btn-outline-primary btn-sm"
+                 th:href="@{/retete/edit/{id}(id=${reteta.idReteta})}">
+                Modifică
+              </a>
+              <a class="btn btn-outline-danger btn-sm"
+                 th:href="@{/retete/delete/{id}(id=${reteta.idReteta})}"
+                 onclick="return confirm('Sigur vrei să ștergi această rețetă?');">
+                Șterge
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
